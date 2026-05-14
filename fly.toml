@@ -1,0 +1,8 @@
+app = "art-cinema-club"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  # DJANGO_SETTINGS_MODULE = "config.settings"
