@@ -1,0 +1,219 @@
+@font-face {
+    font-family: "JosefinSans";
+    src: url("/static/core/fonts/JosefinSans-Thin.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: "JosefinSans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #0e1112;
+    color: #f2f8f6;
+}
+/* prevent background scroll when modal open */
+body.modal-open {
+    overflow: hidden;
+}
+
+header {
+    background-image: url("/static/core/pics/header.jpg");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 55vh;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+}
+.header-inner {
+    position: relative;
+    max-width: 1340px;
+    margin: 0 auto;
+    padding-left: 2.0rem;
+}
+.header-inner::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(164, 164, 164, 0.7);
+}
+
+.header-title {
+    margin: 0;
+    margin-left: 1.5rem;
+    font-size: 8.2rem;
+    letter-spacing: 0.18em;
+    line-height: 1.1;
+    color: rgb(206, 206, 206);
+}
+main {
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* sections */
+.section {
+    margin-bottom: 3rem;
+}
+
+/* inline showtime list & check-in button */
+.section-booking ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-booking li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+}
+
+.checkin-button {
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #a5fed0;
+    background: transparent;
+    color: #85d3ab;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.checkin-button:hover {
+    color: #9cf8c9;
+}
+.section h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* menu */
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* booking form */
+.section-booking ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-booking li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+}
+.showtime-title {
+    flex: 1;
+}
+.showtime-seats {
+    font-size: 0.85rem;
+    color: #b7bcc0;
+    white-space: nowrap;
+}
+
+.booking-form button {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    border: none;
+    background: #80c4a1;
+    color: #0b0c10;
+    cursor: pointer;
+}
+
+.booking-form button:hover {
+    background: #8ff0c1;
+}
+
+/* footer */
+.footer {
+    border-top: 1px solid #303135;
+    background-color: #0c0c0c;
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #b7bcc0;
+}
+
+/* modal */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;           /* hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal {
+    background: #121517;
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem 1.75rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+    position: relative;
+}
+
+.modal-backdrop.is-open {
+    display: flex;
+}
+.modal-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.modal-showtime {
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+    color: #c7cbcf;
+}
+
+.modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.modal-field input {
+    padding: 0.45rem 0.7rem;
+    border-radius: 4px;
+    border: 1px solid #303135;
+    background: #181c1f;
+    color: #f8f8f2;
+}
+
+.modal-close {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+    border: none;
+    background: transparent;
+    color: #c7cbcf;
+    font-size: 1.4rem;
+    cursor: pointer;
+}

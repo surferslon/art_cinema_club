@@ -1,0 +1,118 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}ART CINEMA CLUB{% endblock %}
+
+{% block body %}
+
+<header class="header">
+    <div class="header-inner">
+        <h1 class="header-title">ART<br>CINEMA<br>CLUB</h1>
+    </div>
+</header>
+
+<main>
+    <section class="section section-info" id="info">
+        <h2>Info</h2>
+        <p>
+            Art Cinema Club is a space for curated screenings, retrospectives, and experimental cinema. <br/>
+            Limited seats, focused audiences, and films that rarely hit the mainstream.
+        </p>
+    </section>
+
+    <section class="section section-booking" id="booking">
+        <h2>Showtimes</h2>
+        <ul>
+            {% for show in showtimes %}
+                <li>
+                    <div class="showtime-title">
+                        {{ show.date|date:"Y-m-d H:i" }} — {{ show.title }}
+                    </div>
+
+                    {% if show.seats_left|default:0 > 0 %}
+                        <div class="showtime-seats">
+                            {{ show.seats_booked }} / {{ show.seats }}&nbsp;booked
+                        </div>
+                        <button
+                            class="checkin-button js-open-checkin"
+                            type="button"
+                            data-showtime-id="{{ show.id }}"
+                            data-showtime-label="{{ show.date|date:'Y-m-d H:i' }} — {{ show.title }}"
+                        >
+                            Check in
+                        </button>
+                    {% else %}
+                        <span class="showtime-full">Full</span>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No showtimes scheduled yet.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; {{ now|default:"2026" }} Art Cinema Club</p>
+</footer>
+
+<!-- Check-in modal -->
+<div class="modal-backdrop" id="checkin-modal">
+    <div class="modal">
+        <button class="modal-close" type="button" aria-label="Close">&times;</button>
+        <h3 class="modal-title">Check in</h3>
+        <p class="modal-showtime" id="modal-showtime-label"></p>
+        <form method="post" action="{% url 'checkin-create' %}">
+            {% csrf_token %}
+            <input type="hidden" name="showtime_id" id="modal-showtime-id">
+            <label class="modal-field">
+                <span>Your name</span>
+                <input type="text" name="full_name" required>
+            </label>
+            <button type="submit" class="checkin-button">Confirm</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const modal = document.getElementById("checkin-modal");
+        const modalShowtimeId = document.getElementById("modal-showtime-id");
+        const modalShowtimeLabel = document.getElementById("modal-showtime-label");
+        const closeBtn = modal.querySelector(".modal-close");
+        function openModal(showtimeId, label) {
+            modalShowtimeId.value = showtimeId;
+            modalShowtimeLabel.textContent = label;
+            modal.classList.add("is-open");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeModal() {
+            modal.classList.remove("is-open");
+            document.body.classList.remove("modal-open");
+        }
+        document.querySelectorAll(".js-open-checkin").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                const showtimeId = this.dataset.showtimeId;
+                const label = this.dataset.showtimeLabel || "";
+                openModal(showtimeId, label);
+            });
+        });
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && !modal.hidden) {
+                closeModal();
+            }
+        });
+    })();
+</script>
+
+{% endblock %}
